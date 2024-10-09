@@ -106,7 +106,7 @@ def grafico_dado_estatistico_analise_fase_BLUE1(n_ocupacao, opcao_dado_estatisti
     vetor_barra_erro = Matriz_Dados_Estatisticos_Analise_Fase_Ocupacao[: , indice_coluna_DP]
     
     # Comando para o nome do eixo das abscissas.
-    plt.xlabel("Valores mínimos da amplitude estimada (ADC Count)", fontsize = 18)
+    plt.xlabel("Valores mínimos da amplitude (ADC Count)", fontsize = 18)
     plt.xticks(fontsize = 16)
     
     # Caso a variável opcao_dado_estatistico seja 1 (média).
@@ -166,7 +166,7 @@ def grafico_dado_estatistico_analise_fase_BLUE1(n_ocupacao, opcao_dado_estatisti
     plt.errorbar(vetor_valores_minimos_amplitude_estimada, vetor_dados, yerr =  vetor_barra_erro, color = 'blue', linestyle = '--', marker = 'o', markerfacecolor='red', markersize = 4)
     
     # Posicionamento do texto no gráfico.
-    plt.text(0.99, 0.98, texto, horizontalalignment = 'right',
+    plt.text(0.98, 0.98, texto, horizontalalignment = 'right',
     verticalalignment = 'top',
     transform = plt.gca().transAxes,
     bbox = dict(facecolor = 'white', alpha = 0.5),
