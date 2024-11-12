@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Melhor Estimador Linear Não Enviesado - Best Linear Unbiased Estimator (BLUE1) - Estimação da amplitude, fase ou pedestal.
 # Autor: Guilherme Barroso Morett.
-# Data: 23 de agosto de 2024.
+# Data: 11 de novembro de 2024.
 
 # Objetivo do código: análise do erro de estimação do parâmetro da amplitude, fase ou pedestal pelo método BLUE1.
 
@@ -40,7 +40,7 @@ from termcolor import colored
 from metodo_BLUE1 import *
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # Título do programa.
 
@@ -50,7 +50,7 @@ titulo_programa = colored("Análise do erro de estimação da amplitude, fase ou
 # Impressão do título do programa.
 print(titulo_programa)
 
-### ---------- 1) FUNÇÃO PARA O CÁLCULO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO BLUE1 ----------- ###
+### ----- 1) FUNÇÃO PARA O CÁLCULO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO BLUE1 ----- ###
 
 # Definição da função para o cálculo dos dados estatísticos do erro de estimação da amplitude, fase ou pedestal pelo método BLUE1.
 def dados_estatisticos_erro_estimacao_parametro_BLUE1(lista_erro_estimacao_parametro):
@@ -70,9 +70,9 @@ def dados_estatisticos_erro_estimacao_parametro_BLUE1(lista_erro_estimacao_param
     # A função retorna a média, a variância e o desvio padrão dos dados do erro de estimação da amplitude, fase ou pedestal.
     return media_erro_estimacao_parametro, var_erro_estimacao_parametro, desvio_padrao_erro_estimacao_parametro
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ------- 2) INSTRUÇÃO PARA A CONSTRUÇÃO DO HISTOGRAMA DO TIPO A DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO BLUE1 ------- ###
+### - 2) INSTRUÇÃO PARA A CONSTRUÇÃO DO HISTOGRAMA DO TIPO A DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO BLUE1 - ###
 
 # Definição de instrução para o plot do histograma do tipo A do erro de estimação da amplitude, fase ou pedestal pelo método BLUE1.
 def histograma_A_erro_estimacao_parametro_BLUE1(n_ocupacao, parametro, lista_erro_estimacao_parametro, media_erro_estimacao_parametro, var_erro_estimacao_parametro, desvio_padrao_erro_estimacao_parametro):
@@ -161,9 +161,9 @@ def histograma_A_erro_estimacao_parametro_BLUE1(n_ocupacao, parametro, lista_err
     # Exibição do gráfico.
     plt.show()
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ------ 3) INSTRUÇÃO PARA A CONSTRUÇÃO DO HISTOGRAMA DO TIPO B DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO BLUE1 -------- ###
+### - 3) INSTRUÇÃO PARA A CONSTRUÇÃO DO HISTOGRAMA DO TIPO B DO ERRO DE ESTIMAÇÃO DA AMPLITUDE, FASE OU PEDESTAL PELO MÉTODO BLUE1 - ###
 
 # Definição de instrução para o plot dos histogramas do tipo B do erro de estimação da amplitude, fase ou pedestal para diferentes janelamentos para uma dada ocupação pelo método BLUE1.
 def histograma_B_erro_estimacao_parametro_BLUE1(n_ocupacao, parametro, lista_erro_estimacao_parametro_J7, media_erro_estimacao_parametro_J7, var_erro_estimacao_parametro_J7, desvio_padrao_erro_estimacao_parametro_J7, lista_erro_estimacao_parametro_J15, media_erro_estimacao_parametro_J15, var_erro_estimacao_parametro_J15, desvio_padrao_erro_estimacao_parametro_J15, lista_erro_estimacao_parametro_J19, media_erro_estimacao_parametro_J19, var_erro_estimacao_parametro_J19, desvio_padrao_erro_estimacao_parametro_J19):
@@ -258,7 +258,7 @@ def histograma_B_erro_estimacao_parametro_BLUE1(n_ocupacao, parametro, lista_err
     legenda_J7 = f'Janelamento 7\nMédia: {media_erro_estimacao_parametro_J7}\nVariância: {var_erro_estimacao_parametro_J7}\nDesvio Padrão: {desvio_padrao_erro_estimacao_parametro_J7}'
     
     # A variável legenda_J15 recebe a legenda do histograma para o janelamento 15.
-    legenda_J15 = f'Janelamento 15\nMédia: {media_erro_estimacao_parametro_J15}\nVariância: {var_erro_estimacao_parametro_J15}\nDesvio Padrão: {desvio_padrao_erro_estimacao_parametro_J15}'
+    legenda_J15 = f'Janelamento 17\nMédia: {media_erro_estimacao_parametro_J15}\nVariância: {var_erro_estimacao_parametro_J15}\nDesvio Padrão: {desvio_padrao_erro_estimacao_parametro_J15}'
     
     # A variável legenda_J19 recebe a legenda do histograma para o janelamento 19.
     legenda_J19 = f'Janelamento 19\nMédia: {media_erro_estimacao_parametro_J19}\nVariância: {var_erro_estimacao_parametro_J19}\nDesvio Padrão: {desvio_padrao_erro_estimacao_parametro_J19}'
@@ -280,9 +280,9 @@ def histograma_B_erro_estimacao_parametro_BLUE1(n_ocupacao, parametro, lista_err
     # Exibição do gráfico.
     plt.show()
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### -------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO (MAIN) ------------------------------------------------------------- ###
+### --------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO (MAIN) ------------------------------------------------------- ###
 
 # Definição da instrução principal (main) do código.
 def principal_histograma_erro_estimacao_parametro_BLUE1():
@@ -440,7 +440,7 @@ def principal_histograma_erro_estimacao_parametro_BLUE1():
         # A variável n_janelamento_7 recebe a quantidade do janelamento 7.
         n_janelamento_J7 = 7
         # A variável n_janelamento_15 recebe a quantidade do janelamento 15.
-        n_janelamento_J15 = 15
+        n_janelamento_J15 = 17
         # A variável n_janelamento_19 recebe a quantidade do janelamento 19.
         n_janelamento_J19 = 19
         
@@ -525,9 +525,9 @@ def principal_histograma_erro_estimacao_parametro_BLUE1():
     
         histograma_B_erro_estimacao_parametro_BLUE1(n_ocupacao, parametro, lista_erro_estimacao_parametro_J7, media_erro_estimacao_parametro_J7, var_erro_estimacao_parametro_J7, desvio_padrao_erro_estimacao_parametro_J7, lista_erro_estimacao_parametro_J15, media_erro_estimacao_parametro_J15, var_erro_estimacao_parametro_J15, desvio_padrao_erro_estimacao_parametro_J15, lista_erro_estimacao_parametro_J19, media_erro_estimacao_parametro_J19, var_erro_estimacao_parametro_J19, desvio_padrao_erro_estimacao_parametro_J19)
     
-# Chamada da instrução principal (main) do código.
+# Chamada da instrução principal do código.
 principal_histograma_erro_estimacao_parametro_BLUE1()
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 # Impressão de uma linha que representa o fim do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")

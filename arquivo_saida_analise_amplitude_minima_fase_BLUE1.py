@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Melhor Estimador Linear Não Enviesado - Best Linear Unbiased Estimator (BLUE1) - Estimação da amplitude, fase ou pedestal.
 # Autor: Guilherme Barroso Morett.
-# Data: 23 de agosto de 2024.
+# Data: 11 de novembro de 2024.
 
 # Objetivo do código: implementação da validação cruzada K-Fold para o método BLUE1 para a análise de como o valor mínimo da amplitude influencia na estimação da fase.
 
@@ -32,11 +32,11 @@ from tqdm import tqdm
 import time
 from termcolor import colored
 
-# Importação dos arquivos.
+# Importação do arquivo.
 from metodo_BLUE1 import *
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # Título do programa.
 
@@ -47,7 +47,7 @@ titulo_programa = colored("Geração de arquivos de saída pela técnica de vali
 print(titulo_programa)
 
 
-### -------- 1) INSTRUÇÃO PARA A IMPRESSÃO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA FASE EM UM ARQUIVO DE SAÍDA PELO MÉTODO BLUE1 -------- ###
+### -- 1) INSTRUÇÃO PARA A IMPRESSÃO DOS DADOS ESTATÍSTICOS DO ERRO DE ESTIMAÇÃO DA FASE EM UM ARQUIVO DE SAÍDA PELO MÉTODO BLUE1 --- ###
 
 # Definição da instrução para a impressão em um arquivo de saída, os dados estatísticos do erro de estimação da fase pelo método BLUE1.
 def arquivo_saida_dados_estatisticos_erro_estimacao_fase_BLUE1(n_ocupacao, n_janelamento_ideal_amplitude_estimada, media_erro_estimacao_fase, var_erro_estimacao_fase, desvio_padrao_erro_estimacao_fase, tamanho_vetor_estimacao_fase, valor_minimo_amplitude_estimada_processo_fase, tipo_fase, dado_estatistico):
@@ -60,6 +60,7 @@ def arquivo_saida_dados_estatisticos_erro_estimacao_fase_BLUE1(n_ocupacao, n_jan
 
     # Caso a pasta não exista.
     if not os.path.exists(pasta_saida):
+        
         # Criação da pasta de saída.
         os.makedirs(pasta_saida)
 
@@ -69,34 +70,51 @@ def arquivo_saida_dados_estatisticos_erro_estimacao_fase_BLUE1(n_ocupacao, n_jan
     # Caminho completo para o arquivo de saída.
     caminho_arquivo_saida = os.path.join(pasta_saida, arquivo_saida)
 
-    # Verifica se o arquivo existe e está vazio.
+    # Comando para tentar realizar uma operação.
     try:
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como a variável arquivo_saida_dados_estatisticos no modo leitura.
         with open(caminho_arquivo_saida, 'r') as arquivo_saida_dados_estatisticos:
+            
+            # A variável primeiro_caractere recebe o primeiro elemento presente no arquivo_saida_dados_estatisticos.
             primeiro_caractere = arquivo_saida_dados_estatisticos.read(1)
+            
+            # Caso não haja nada na variável primeiro_caractere.
             if not primeiro_caractere:
-                # Arquivo está vazio, escreva o título
+                
+                # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo acrescentar.
                 with open(caminho_arquivo_saida, 'a') as file:
+                    
+                    # Escreve o título no arquivo file.
                     file.write(titulo_arquivo_saida)
+    
+    # Excessão de erro ao encontrar o arquivo no caminho fornecido.                
     except FileNotFoundError:
-        # Se o arquivo não existe, cria e escreve o título
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo escrita.
         with open(caminho_arquivo_saida, 'w') as file:
+            
+            # Escreve o título no arquivo file.
             file.write(titulo_arquivo_saida)
 
     # Comando para tentar realizar uma operação.
     try:
-        # Abre o arquivo de saída no modo de acrescentar (append).
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como arquivo_saida_dados_estatisticos no modo acrescentar.
         with open(caminho_arquivo_saida, "a") as arquivo_saida_dados_estatisticos:
-            # Escrita dos dados de interesse.
+            
+            # Escrita dos dados de interesse no arquivo_saida_dados_estatisticos.
             arquivo_saida_dados_estatisticos.write(f"{valor_minimo_amplitude_estimada_processo_fase},{media_erro_estimacao_fase},{var_erro_estimacao_fase},{desvio_padrao_erro_estimacao_fase},{tamanho_vetor_estimacao_fase}\n")
         
     # Excessão.
     except Exception as e:
+        
         # Impressão de mensagem de alerta.
         print("Ocorreu um erro ao atualizar o arquivo de saída dos dados estatísticos:", str(e))
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### -------------------------------- 2) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD PARA A FASE PELO MÉTODO BLUE1 -------------------------------- ###
+### ----------------------- 2) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD PARA A FASE PELO MÉTODO BLUE1 ------------------------------ ###
 
 # Definição da instrução da técnica de validação cruzada K-Fold para a fase pelo método BLUE1.
 def K_fold_BLUE1_analise_fase(parametro, n_ocupacao, n_janelamento_ideal_amplitude_estimada, Matriz_Pulsos_Sinais_Janelado, vetor_fase_referencia_janelado, valor_minimo_amplitude_estimada_processo_fase, tipo_fase, vetor_amplitude_referencia_janelado):
@@ -176,9 +194,6 @@ def K_fold_BLUE1_analise_fase(parametro, n_ocupacao, n_janelamento_ideal_amplitu
         # Caso a variável vetor_amplitude_referencia_janelado não é igual a None.
         if vetor_amplitude_referencia_janelado is not None:
         
-            # Definição do bloco_teste_amplitude_referencia como sendo aquele de índice igual ao indice_teste.
-            bloco_teste_amplitude_referencia = blocos_amplitude_referencia[indice_teste]
-        
             # Definição do bloco_treino_amplitude_referencia como sendo aqueles de índices diferentes do indice_teste.
             bloco_treino_amplitude_referencia = blocos_amplitude_referencia[:indice_teste]+blocos_amplitude_referencia[indice_teste+1:]
         
@@ -208,7 +223,7 @@ def K_fold_BLUE1_analise_fase(parametro, n_ocupacao, n_janelamento_ideal_amplitu
     var_media_blocos_erro_estimacao_fase = np.var(lista_blocos_media_erro_estimacao_fase)
     DP_media_blocos_erro_estimacao_fase = np.std(lista_blocos_media_erro_estimacao_fase)
     
-    # Salva a informação dos dados estatísticos da média do erro de estimação do fase em seus respectivos arquivos de saída.
+    # Salva a informação dos dados estatísticos da média do erro de estimação da fase em seus respectivos arquivos de saída.
     arquivo_saida_dados_estatisticos_erro_estimacao_fase_BLUE1(n_ocupacao, n_janelamento_ideal_amplitude_estimada, media_media_blocos_erro_estimacao_fase, var_media_blocos_erro_estimacao_fase, DP_media_blocos_erro_estimacao_fase, media_tamanho_blocos_erro_estimacao_fase, valor_minimo_amplitude_estimada_processo_fase, tipo_fase, dado_estatistico = "media")
     
     # Cálculo dos dados estatísticos da variância.
@@ -227,11 +242,11 @@ def K_fold_BLUE1_analise_fase(parametro, n_ocupacao, n_janelamento_ideal_amplitu
     # Salva a informação dos dados estatísticos do desvio padrão do erro de estimação do fase em seus respectivos arquivos de saída.
     arquivo_saida_dados_estatisticos_erro_estimacao_fase_BLUE1(n_ocupacao, n_janelamento_ideal_amplitude_estimada, media_DP_blocos_erro_estimacao_fase, var_DP_blocos_erro_estimacao_fase, DP_DP_blocos_erro_estimacao_fase, media_tamanho_blocos_erro_estimacao_fase, valor_minimo_amplitude_estimada_processo_fase, tipo_fase, dado_estatistico = "DP")
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ### 
+### --------------------------------------------------------------------------------------------------------------------------------- ### 
 
-### ----------------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ----------------------------------------------------- ###
+### ------------------------------------------------ 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ----------------------------------------------- ###
   
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_K_fold_analise_fase_BLUE1():
     
     # A variável n_janelamento_ideal_amplitude_estimada recebe o valor ideal para a amplitude estimada obtido pela análise gráfica do K-Fold.
@@ -253,7 +268,7 @@ def principal_K_fold_analise_fase_BLUE1():
     # A variável tipo_opcao_fase armazena a escolha digitada pelo usuário para o processo de estimação da fase.
     tipo_opcao_fase = int(input("Opções para a análise do processo de estimação da fase:\nAmplitude estimada: 1\nAmplitude de referência: 2\nDigite a opção desejada:"))
     
-    # A variável valores_tipo_opcao_fase é uma lista com os valores aceitáveis para o o tipo de processo de estimação da fase.
+    # A variável valores_tipo_opcao_fase é uma lista com os valores aceitáveis para o tipo de processo de estimação da fase.
     valores_tipos_opcoes_fase = [1, 2]
 
     # Caso o valor digitado armazenado na variável tipo_opcao_fase não estiver presente na lista valores_tipos_opcoes_fase.
@@ -261,7 +276,7 @@ def principal_K_fold_analise_fase_BLUE1():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
         
@@ -283,10 +298,10 @@ def principal_K_fold_analise_fase_BLUE1():
         # A variável parametro recebe a string "fase_amplitude_referencia".
         parametro = "fase_amplitude_referencia"
     
-    # Para o número de ocupações de 0 até 100 com incremento de 10. 
+    # Para o número de ocupações de 10 até 100 com incremento de 10. 
     for n_ocupacao in tqdm(range(ocupacao_inicial, ocupacao_final+1, incremento_ocupacao)):
     
-        # Para o elemento valor_minimo_amplitude_processo_fase na lista lista_valroes_minimos_amplitude.
+        # Para o elemento valor_minimo_amplitude_processo_fase na lista lista_valores_minimos_amplitude.
         for valor_minimo_amplitude_processo_fase in tqdm(lista_valores_minimos_amplitude):
     
             # Chamada ordenada das funções.
@@ -314,9 +329,10 @@ def principal_K_fold_analise_fase_BLUE1():
                 K_fold_BLUE1_analise_fase(parametro, n_ocupacao, n_janelamento_ideal_amplitude_estimada, Matriz_Pulsos_Sinais_Fase_Janelado, vetor_fase_referencia_janelado, valor_minimo_amplitude_processo_fase, tipo_fase, vetor_amplitude_referencia_janelado)
                 
 # Chamada da instrução principal do código.
-principal_K_fold_analise_fase_BLUE1()       
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+principal_K_fold_analise_fase_BLUE1() 
+      
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
 # Impressão de uma linha que representa o fim do programa.
 
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")

@@ -1,8 +1,10 @@
-A primeira versão do método Melhor Estimador Linear Não Enviesado (BEst Linear Blue Estimador - BLUE 1) tem o objetivo de encontrar um vetor de parâmetros estimados, cujos componentes são respectivamente: amplitude, amplitude vezes a fase e pedestal.
-Nesse repositório, o algoritmo foi desenvolvido para o cálculo individual do erro de estimação desses parâmetros pela técnica de validação cruzada K-Fold.
-Comentários sobre os resultados: de acordo com a análise estatística notou-se que não há um janelamento ideal para amplitude visto que o desvio padrão não se estabiliza para um certo valor de janelamento adotado. Portanto, o último janelamento a ser analizd o o 19 foi considerado como o ideal.
-Ademais para a fase, os resultados não foram satisfatórios, devido ao fato da dispersão dos dados em relação a média serem elevados. Portanto, novas estrátegias para o cálculo da fase devem ser avaliadas. O que foi proposto é adotar um valor mínimo para a amplitude estimada.
+A primeira versão do método Melhor Estimador Linear Não Enviesado (Best Linear Blue Estimador - BLUE 1) tem o objetivo de encontrar um vetor de parâmetros estimados, cujos componentes são respectivamente: amplitude, amplitude vezes fase e pedestal.
 Obs.: nesse algoritmo, a fase estimada é calculada pela divisão entre o termo da amplitude versus a fase pela amplitude estimada.
+
+Nesse repositório, o algoritmo foi desenvolvido para o cálculo individual do erro de estimação desses parâmetros pela técnica de validação cruzada K-Fold.
+
+Comentários sobre os resultados: de acordo com a análise estatística notou-se que não há um janelamento ideal para amplitude visto que o desvio padrão não se estabiliza para um certo valor de janelamento adotado. Portanto, o último janelamento a ser analizado 19 foi considerado como o ideal.
+Ademais para a fase, os resultados não foram satisfatórios, devido ao fato da dispersão dos dados em relação a média serem elevados. Portanto, novas estrátegias para o cálculo da fase devem ser avaliadas. O que foi proposto é adotar um valor mínimo para a amplitude estimada. Outra alternativa é calcular a fase estimada por meio da amplitude de referência.
 
 A seguir são listadas as pastas e também os arquivos contidos nesse repositório, assim como suas respectivas funções:
 
@@ -19,7 +21,7 @@ A seguir são listadas as pastas e também os arquivos contidos nesse repositór
   * Essa pasta contém arquivos para cada um dos janelamento com os valores das ocupações e médias, variâncias e desvios padrão associados para o erro de estimação do pedestal.
 
 5. Dados_Ocupacoes_Free_Running
-  * Essa pasta contém arquivos com os dados para cada uma das ocupações referentes ao pulso de sinal, amplitude de referência, fase de referência e ruído eletrônico computados a cada 25 ns.
+  * Essa pasta contém arquivos com os dados para cada uma das ocupações referentes ao pulso de sinal, amplitude de referência, fase de referência e ruído eletrônico registrados a cada 25 ns.
   
 6. K_Fold_amplitude_DP_Dados_Estatisticos_BLUE1_OC
   * Essa pasta contém arquivos para cada uma das ocupações; os valores dos janelamentos com as médias, variâncias e desvios padrão dos desvios padrão dos erros de estimação da amplitude calculados pela técnica de validação cruzada K-Fold.

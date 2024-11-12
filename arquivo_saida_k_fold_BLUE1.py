@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Melhor Estimador Linear Não Enviesado - Best Linear Unbiased Estimator (BLUE1) - Estimação da amplitude, fase ou pedestal.
 # Autor: Guilherme Barroso Morett.
-# Data: 23 de agosto de 2024.
+# Data: 11 de novembro de 2024.
 
 # Objetivo do código: implementação da validação cruzada K-Fold para o método BLUE1 para a estimação da amplitude, fase ou pedestal.
 
@@ -17,7 +17,7 @@ Entrada: número de ocupação, número do janelamento, média do dado estatíst
 Saída: nada.
 
 2) Instrução da validação cruzada K-Fold.
-Entrada: parâmetro, número de ocupação, número e janelamento, matriz de pulsos de sinais janelada, vetor do parâmetro de referência e o valor mínimo da amplitude.
+Entrada: parâmetro, número de ocupação, número e janelamento, matriz de pulsos de sinais janelado, vetor do parâmetro de referência e o valor mínimo da amplitude.
 Saída: nada.
 
 3) Instrução principal do código.
@@ -36,7 +36,7 @@ from termcolor import colored
 from metodo_BLUE1 import *
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # Título do programa.
 
@@ -46,7 +46,7 @@ titulo_programa = colored("Geração de arquivos de saída pela técnica de vali
 # Impressão do título do programa.
 print(titulo_programa)
 
-### ------------------------------ 1) INSTRUÇÃO PARA SALVAR OS DADOS ESTATÍSTICOS DO K-FOLD PELO MÉTODO BLUE1 ---------------------------------- ###
+### --------------------------- 1) INSTRUÇÃO PARA SALVAR OS DADOS ESTATÍSTICOS DO K-FOLD PELO MÉTODO BLUE1 -------------------------- ###
 
 # Definição da instrução para salvar as médias dos dados estatísticos da validação cruzada K-Fold em arquivo de saída para o método BLUE1.
 def arquivo_saida_dados_estatisticos_k_fold_erro_BLUE1(parametro, n_ocupacao, n_janelamento, media_dado_erro, var_dado_erro, DP_dado_erro, dado):
@@ -69,33 +69,51 @@ def arquivo_saida_dados_estatisticos_k_fold_erro_BLUE1(parametro, n_ocupacao, n_
     # Caminho completo para o arquivo de saída.
     caminho_arquivo_saida = os.path.join(pasta_saida, arquivo_saida)
 
-    # Verifica se o arquivo existe e está vazio
+    # Comando para tentar realizar uma operação.
     try:
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como a variável arquivo_saida_dados_estatisticos no modo leitura.
         with open(caminho_arquivo_saida, 'r') as arquivo_saida_dados_estatisticos:
+            
+            # A variável primeiro_caractere recebe o primeiro elemento presente no arquivo_saida_dados_estatisticos.
             primeiro_caractere = arquivo_saida_dados_estatisticos.read(1)
+            
+            # Caso não haja nada na variável primeiro_caractere.
             if not primeiro_caractere:
-                # Arquivo está vazio, escreva o título
+                
+                # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo acrescentar.
                 with open(caminho_arquivo_saida, 'a') as file:
+                    
+                    # Escreve o título no arquivo file.
                     file.write(titulo_arquivo_saida)
+                    
+    # Excessão de erro ao encontrar o arquivo no caminho fornecido.                
     except FileNotFoundError:
-        # Se o arquivo não existe, cria e escreve o título
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como file no modo escrita.
         with open(caminho_arquivo_saida, 'w') as file:
+            
+            # Escreve o título no arquivo file.
             file.write(titulo_arquivo_saida)
 
     # Comando para tentar realizar uma operação.
     try:
-        # Abre o arquivo de saída no modo de acrescentar (append).
+        
+        # Abre o arquivo presente no endereço caminho_arquivo_saida como arquivo_saida_dados_estatisticos no modo acrescentar.
         with open(caminho_arquivo_saida, "a") as arquivo_saida_dados_estatisticos:
-            # Escrita dos dados de interesse.
+            
+            # Escrita dos dados de interesse no arquivo_saida_dados_estatisticos.
             arquivo_saida_dados_estatisticos.write(f"{n_janelamento},{media_dado_erro},{var_dado_erro},{DP_dado_erro}\n")
+    
     # Excessão.
     except Exception as e:
+        
         # Impressão de mensagem de alerta.
         print("Ocorreu um erro ao atualizar o arquivo de saída dos dados estatísticos:", str(e))
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ----------------------------------- 2) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO BLUE1 ----------------------------------------- ###
+### --------------------------------- 2) INSTRUÇÃO PARA A VALIDAÇÃO CRUZADA K-FOLD PELO MÉTODO BLUE1 -------------------------------- ###
 
 # Definição da instrução da técnica de validação cruzada K-Fold para o método BLUE1.
 def K_fold_BLUE1(parametro, n_ocupacao, n_janelamento, Matriz_Pulsos_Sinais_Janelado, vetor_parametro_referencia_janelado, valor_minimo_amplitude_estimada_processo_fase, vetor_amplitude_referencia_janelado):
@@ -172,9 +190,6 @@ def K_fold_BLUE1(parametro, n_ocupacao, n_janelamento, Matriz_Pulsos_Sinais_Jane
         # Caso a variável vetor_amplitude_referencia_janelado não é igual a None.
         if vetor_amplitude_referencia_janelado is not None:
         
-            # Definição do bloco_teste_amplitude_referencia como sendo aquele de índice igual ao indice_teste.
-            bloco_teste_amplitude_referencia = blocos_amplitude_referencia[indice_teste]
-        
             # Definição do bloco_treino_amplitude_referencia como sendo aqueles de índices diferentes do indice_teste.
             bloco_treino_amplitude_referencia = blocos_amplitude_referencia[:indice_teste]+blocos_amplitude_referencia[indice_teste+1:]
         
@@ -218,11 +233,11 @@ def K_fold_BLUE1(parametro, n_ocupacao, n_janelamento, Matriz_Pulsos_Sinais_Jane
     # Salva a informação dos dados estatísticos do desvio padrão do erro de estimação do parâmetro em seus respectivos arquivos de saída.
     arquivo_saida_dados_estatisticos_k_fold_erro_BLUE1(parametro, n_ocupacao, n_janelamento, media_DP_blocos_erro_estimacao_parametro, var_DP_blocos_erro_estimacao_parametro, DP_DP_blocos_erro_estimacao_parametro, dado = "DP")
     
-### -------------------------------------------------------------------------------------------------------------------------------------------- ### 
+### --------------------------------------------------------------------------------------------------------------------------------- ### 
 
-### ----------------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ----------------------------------------------------- ###
+### ------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ---------------------------------------------------- ###
   
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_K_fold_BLUE1():
     
     # A variável parametro_amplitude armazena a string "amplitude".
@@ -292,9 +307,10 @@ def principal_K_fold_BLUE1():
             K_fold_BLUE1(parametro_pedestal, n_ocupacao, n_janelamento, Matriz_Pulsos_Sinais_Pedestal_Janelado, vetor_pedestal_referencia_janelado, valor_minimo_amplitude_processo_fase = None, vetor_amplitude_referencia_janelado = None)
      
 # Chamada da instrução principal do código.
-principal_K_fold_BLUE1()       
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+principal_K_fold_BLUE1() 
+      
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
 # Impressão de uma linha que representa o fim do programa.
 
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")

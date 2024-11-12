@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Melhor Estimador Linear Não Enviesado - Best Linear Unbiased Estimator (BLUE1) - Estimação da amplitude, fase ou pedestal.
 # Autor: Guilherme Barroso Morett.
-# Data: 23 de agosto de 2024.
+# Data: 11 de novembro de 2024.
 
 # Objetivo do código: gráfico dos dados estatísticos ao longo das ocupações de acordo com o janelamento para o método BLUE1.
 
@@ -31,7 +31,7 @@ import os
 from termcolor import colored
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # Título do programa.
 
@@ -41,7 +41,7 @@ titulo_programa = colored("Plote do gráfico do dado estatístico do erro de est
 # Impressão do título do programa.
 print(titulo_programa)
 
-### -------- 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DE TODAS AS OCUPAÇÕES PARA UM DETERMINADO JANELAMENTO PELO MÉTODO BLUE1 ----------- ###
+### ---- 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DE TODAS AS OCUPAÇÕES PARA UM DETERMINADO JANELAMENTO PELO MÉTODO BLUE1 ---- ###
 
 # Definição da função para a leitura dos dados estatísticos de todas as ocupações para um determinado janelamento pelo método BLUE1.
 def leitura_dados_estatisticos_janelamento_BLUE1(parametro, n_janelamento):
@@ -76,9 +76,9 @@ def leitura_dados_estatisticos_janelamento_BLUE1(parametro, n_janelamento):
     # A função retorna a matriz Matriz_Dados_Estatisticos_Janelamento.
     return Matriz_Dados_Estatisticos_Janelamento
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ------ 2) INSTRUÇÃO PARA O PLOTE DOS GRÁFICO DO DADO ESTATÍSTICO AO LONGO DAS OCUPAÇÕES PARA UM DETERMINADO JANELAMENTO PELO MÉTODO BLUE1 ----- ###
+### --- 2) INSTRUÇÃO PARA O PLOTE DOS GRÁFICO DO DADO ESTATÍSTICO AO LONGO DAS OCUPAÇÕES PARA UM DETERMINADO JANELAMENTO PELO MÉTODO BLUE1 --- ###
 
 # Definição da instrução para o plote do gráfico do dado estatístico ao longo das ocupações para um determinado janelamento pelo método BLUE1.
 def grafico_dado_estatistico_janelamento_BLUE1(parametro, dado_estatistico, Matriz_Dados_Estatisticos_Janelamento):
@@ -100,6 +100,8 @@ def grafico_dado_estatistico_janelamento_BLUE1(parametro, dado_estatistico, Matr
     
     # Comando para o nome do eixo das abscissas.
     plt.xlabel("Ocupação (OC.)", fontsize = 18)
+    
+    # Comando que define o tamanho dos números do eixo das abscissas.
     plt.xticks(fontsize = 16)
     
     # Caso a variável dado_estatístico seja 1 (média).
@@ -119,7 +121,8 @@ def grafico_dado_estatistico_janelamento_BLUE1(parametro, dado_estatistico, Matr
         
             # Comando para o nome do eixo das ordenadas de acordo com o pedestal.
             plt.ylabel(f"Média do erro de estimação do {parametro} (ADC Count)", fontsize = 18)
-            
+        
+        # Caso contrário.    
         else:
             
             # Comando para o nome do eixo das ordenadas de acordo com os demais parâmetros.
@@ -142,7 +145,8 @@ def grafico_dado_estatistico_janelamento_BLUE1(parametro, dado_estatistico, Matr
         
             # Comando para o nome do eixo das ordenadas de acordo com o pedestal.
             plt.ylabel(f"Var. do erro de estimação do {parametro} (ADC Count)", fontsize = 18)
-            
+         
+        # Caso contrário.   
         else:
             
             # Comando para o nome do eixo das ordenadas de acordo com os demais parâmetros.
@@ -184,11 +188,11 @@ def grafico_dado_estatistico_janelamento_BLUE1(parametro, dado_estatistico, Matr
     # Comando para o plote.
     plt.show()
         
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###        
+### --------------------------------------------------------------------------------------------------------------------------------- ###        
         
-### ---------------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO  ----------------------------------------------------- ###
+### --------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO  ------------------------------------------------- ###
 
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_grafico_dado_estatistico_janelamento_BLUE1():
     
     # Impressão de mensagem no terminal.
@@ -205,7 +209,7 @@ def principal_grafico_dado_estatistico_janelamento_BLUE1():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
     
@@ -223,7 +227,7 @@ def principal_grafico_dado_estatistico_janelamento_BLUE1():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
         
@@ -262,7 +266,7 @@ def principal_grafico_dado_estatistico_janelamento_BLUE1():
     
         # Exibição de uma mensagem de alerta de que a quantidade de janelamento solicitada é inválida.
         print("Quantidade de janelamento inválida! Opções de janelamento: 7, 9, 11, 13, 15, 17, 19.")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
         
@@ -275,5 +279,5 @@ def principal_grafico_dado_estatistico_janelamento_BLUE1():
 principal_grafico_dado_estatistico_janelamento_BLUE1()
 
 # Impressão de uma linha que representa o fim do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
     

@@ -1,6 +1,6 @@
 # EXPERIMENTO ATLAS - Reconstrução de sinal - Melhor Estimador Linear Não Enviesado - Best Linear Unbiased Estimator (BLUE1) - Estimação da amplitude, fase ou pedestal.
 # Autor: Guilherme Barroso Morett.
-# Data: 23 de agosto de 2024.
+# Data: 11 de novembro de 2024.
 
 # Objetivo do código: gráfico dos dados estatísticos do erro de estimação da fase para uma determinada ocupação versus o valor mínimo da amplitude de acordo com o janelamento ideal para a amplitude estimada pelo método BLUE1.
 
@@ -11,7 +11,7 @@ Funções presentes:
 
 1) Função para a leitura dos dados estatísticos da análise erro de estimação da fase para uma dada ocupação pelo método BLUE1.
 Entrada: número da ocupação, número do janelamento ideal para a amplitude estimada e dado estatístico de interesse.
-Saída: Matriz com os dados de entrada organizados de acordo com a coluna (valor mínimo da amplitude estimada, média do dado estatístico, variância do dado estatístico, desvio padrão do dado estatístico e quantidade de elementos do vetor que contém os erros de estimação da fase).
+Saída: matriz com os dados de entrada organizados de acordo com a coluna (valor mínimo da amplitude estimada, média do dado estatístico, variância do dado estatístico, desvio padrão do dado estatístico e quantidade de elementos do vetor que contém os erros de estimação da fase).
 
 2) Instrução para o plote do gráfico do dado estatístico ao longo das ocupações para um determinado janelamento pelo processo de estimação da fase.
 Entrada: dado estatístico desejado (média, variância ou desvio padrão) e a matriz dos dados.
@@ -29,7 +29,7 @@ import os
 from termcolor import colored
 
 # Impressão de uma linha que representa o início do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
 
 # Título do programa.
 
@@ -39,7 +39,7 @@ titulo_programa = colored("Plote do gráfico do dado estatístico da análise do
 # Impressão do título do programa.
 print(titulo_programa)
 
-### -------- 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DA ANÁLISE DO ERRO DE ESTIMAÇÃO DA FASE PARA UMA DADA OCUPAÇÃO PELO MÉTODO BLUE1 ----------- ###
+### 1) FUNÇÃO PARA A LEITURA DOS DADOS ESTATÍSTICOS DA ANÁLISE DO ERRO DE ESTIMAÇÃO DA FASE PARA UMA DADA OCUPAÇÃO PELO MÉTODO BLUE1 ###
 
 # Definição da função para a leitura dos dados estatísticos da análise do erro de estimação da fase pelo método BLUE1.
 def leitura_dados_estatisticos_analise_fase_BLUE1(n_ocupacao, n_janelamento_ideal_amplitude_estimada, dado_estatistico, tipo_fase):
@@ -74,9 +74,9 @@ def leitura_dados_estatisticos_analise_fase_BLUE1(n_ocupacao, n_janelamento_idea
     # A função retorna a matriz Matriz_Dados_Estatisticos_Analise_Fase_Ocupacao.
     return Matriz_Dados_Estatisticos_Analise_Fase_Ocupacao
 
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
-### ---------- 2) INSTRUÇÃO PARA O PLOTE DOS GRÁFICO DO ANÁLISE DA ESTIMAÇÃO DA FASE PARA UMA DETERMINADA OCUPAÇÃO PELO MÉTODO BLUE1 ----------- ###
+### ----- 2) INSTRUÇÃO PARA O PLOTE DOS GRÁFICO DO ANÁLISE DA ESTIMAÇÃO DA FASE PARA UMA DETERMINADA OCUPAÇÃO PELO MÉTODO BLUE1 ----- ###
 
 # Definição da instrução para o plote do gráfico do dado estatístico da análise da estimação da fase para uma determinada ocupação pelo método BLUE1.
 def grafico_dado_estatistico_analise_fase_BLUE1(n_ocupacao, opcao_dado_estatistico, Matriz_Dados_Estatisticos_Analise_Fase_Ocupacao):
@@ -107,6 +107,8 @@ def grafico_dado_estatistico_analise_fase_BLUE1(n_ocupacao, opcao_dado_estatisti
     
     # Comando para o nome do eixo das abscissas.
     plt.xlabel("Valores mínimos da amplitude (ADC Count)", fontsize = 18)
+    
+     # Comando que define o tamanho dos números do eixo das abscissas.
     plt.xticks(fontsize = 16)
     
     # Caso a variável opcao_dado_estatistico seja 1 (média).
@@ -178,11 +180,11 @@ def grafico_dado_estatistico_analise_fase_BLUE1(n_ocupacao, opcao_dado_estatisti
     # Comando para o plote.
     plt.show()
         
-### -------------------------------------------------------------------------------------------------------------------------------------------- ###        
+### --------------------------------------------------------------------------------------------------------------------------------- ###        
         
-### ---------------------------------------------------- 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ------------------------------------------------------ ###
+### ------------------------------------------------ 3) INSTRUÇÃO PRINCIPAL DO CÓDIGO ----------------------------------------------- ###
 
-# Definição da instrução principal (main) do código.
+# Definição da instrução principal do código.
 def principal_grafico_dado_estatistico_analise_fase_BLUE1():
     
     # A variável tipo_opcao_fase armazena a escolha digitada pelo usuário para o processo de estimação da fase.
@@ -196,7 +198,7 @@ def principal_grafico_dado_estatistico_analise_fase_BLUE1():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1)
         
@@ -226,7 +228,7 @@ def principal_grafico_dado_estatistico_analise_fase_BLUE1():
     
         # Exibição de uma mensagem de alerta de que a opção solicitada é inválida.
         print("Essa opção de dado estatístico é inválida!")
-        print("---------------------------------------------------------------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------------------------------------------------")
         # A execução do programa é interrompida.
         exit(1) 
         
@@ -254,7 +256,7 @@ def principal_grafico_dado_estatistico_analise_fase_BLUE1():
     n_ocupacao = int(input("Digite a quantidade de ocupação desejada: "))
 
     # A variável valores_ocupacoes é uma lista com os valores aceitáveis para n_ocupacao.
-    #Obs.: em virtude do alto índice de valores baixos para a amplitude estimada na ocupação 0, esta não foi possível analisar.
+    # Obs.: em virtude do alto índice de valores baixos para a amplitude estimada na ocupação 0, esta não foi possível analisar.
     valores_ocupacoes = list(range(10,101,10))
     
     # A variável n_janelamento_ideal_amplitude_estimada recebe o valor ideal da amplitude estimada pela análise dos grafícos do K-Fold.
@@ -279,5 +281,5 @@ def principal_grafico_dado_estatistico_analise_fase_BLUE1():
 principal_grafico_dado_estatistico_analise_fase_BLUE1()
 
 # Impressão de uma linha que representa o fim do programa.
-print("\n---------------------------------------------------------------------------------------------------------------------------------------\n")
+print("\n----------------------------------------------------------------------------------------------------------------------------\n")
     
