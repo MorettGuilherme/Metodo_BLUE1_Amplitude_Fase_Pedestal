@@ -108,7 +108,7 @@ def grafico_dado_estatistico_analise_fase_BLUE1(n_ocupacao, opcao_dado_estatisti
     # Comando para o nome do eixo das abscissas.
     plt.xlabel("Valores mínimos da amplitude (ADC Count)", fontsize = 18)
     
-     # Comando que define o tamanho dos números do eixo das abscissas.
+    # Comando que define o tamanho dos números do eixo das abscissas.
     plt.xticks(fontsize = 16)
     
     # Caso a variável opcao_dado_estatistico seja 1 (média).
@@ -279,6 +279,8 @@ def principal_grafico_dado_estatistico_analise_fase_BLUE1():
     
 # Chamada da instrução principal do código.
 principal_grafico_dado_estatistico_analise_fase_BLUE1()
+
+### --------------------------------------------------------------------------------------------------------------------------------- ###
 
 # Impressão de uma linha que representa o fim do programa.
 print("\n----------------------------------------------------------------------------------------------------------------------------\n")

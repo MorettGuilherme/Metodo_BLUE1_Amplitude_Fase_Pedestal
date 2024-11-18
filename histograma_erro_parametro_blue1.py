@@ -529,5 +529,6 @@ def principal_histograma_erro_estimacao_parametro_BLUE1():
 principal_histograma_erro_estimacao_parametro_BLUE1()
 
 ### --------------------------------------------------------------------------------------------------------------------------------- ###
+
 # Impressão de uma linha que representa o fim do programa.
 print("\n----------------------------------------------------------------------------------------------------------------------------\n")

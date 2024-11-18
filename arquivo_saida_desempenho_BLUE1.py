@@ -523,7 +523,8 @@ def principal_desempenho_BLUE1():
     print(f"Tempo de execução: {tempo_execucao}")
      
 # Chamada da instrução principal do código.
-principal_desempenho_BLUE1()       
+principal_desempenho_BLUE1()
+       
 ### --------------------------------------------------------------------------------------------------------------------------------- ###
 
 # Impressão de uma linha que representa o fim do programa.

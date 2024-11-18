@@ -284,6 +284,8 @@ def principal_grafico_dado_estatistico_desempenho_BLUE1():
 # Chamada da instrução principal do código.
 principal_grafico_dado_estatistico_desempenho_BLUE1()
 
+### --------------------------------------------------------------------------------------------------------------------------------- ###
+
 # Impressão de uma linha que representa o fim do programa.
 print("\n----------------------------------------------------------------------------------------------------------------------------\n")
     
